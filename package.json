@@ -1,14 +1,16 @@
 {
-  "name": "e-commerce",
+  "name": "product-shop",
   "version": "1.0.0",
-  "description": "A mern stack multivendor e-commerce app",
+  "description": "A mern stack multivendor product-shop app",
   "main": "app.js",
-  "author": "Sajid Ansari",
+  "author": "Rachel McGrath",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
-    "start:dev": "node app",
-    "heroku-postbuild": "YARN_PRODUCTION=false cd client && yarn install"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "cd server && npm start",
+    "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "heroku-postbuild": "cd client && npm run build"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.3.0",
@@ -21,6 +23,7 @@
     "express-fileupload": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.6",
-    "node-cron": "^2.0.3"
+    "node-cron": "^2.0.3",
+    "nodemailer": "^6.4.11"
   }
 }
