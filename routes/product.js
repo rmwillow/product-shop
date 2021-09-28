@@ -13,6 +13,9 @@ const {
   //Product model
   const Product = require("../models/Product");
   
+  //Include other resource Router
+  const reviewRouter = require("./review");
+
   const router = require("express").Router();
   
   router
@@ -20,8 +23,10 @@ const {
     .get(advanceResults(Product), getProducts)
     .post(protect, permission("admin"), createProduct);
   
+  router.use("/:productId/reviews", reviewRouter);
+
   router
-    .route("/:productID")
+    .route("/:productId")
     .get(getProduct)
     .put(protect, permission("admin"), updateProduct)
     .delete(protect, permission("admin"), deleteProduct);
