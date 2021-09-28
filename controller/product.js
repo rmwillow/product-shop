@@ -58,8 +58,11 @@ const deleteProduct = asyncHandler(async (req, res, next) => {
 
   await deleteProduct.remove();
 
-  res.status(204).send({ status: "success", message: "Product Deleted" });
+  res
+    .status(204)
+    .send({ status: "success", message: "Product Deleted Successfully" });
 });
+
 module.exports = {
   getProducts,
   getProduct,
