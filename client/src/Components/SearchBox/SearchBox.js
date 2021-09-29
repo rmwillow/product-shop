@@ -4,7 +4,6 @@ import "./style.css";
 const SearchBox = () => {
   return (
     <Form inline>
-      <i class="fas fa-search"></i>
       <FormControl
         type="text"
         name="seacrh"
