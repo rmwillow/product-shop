@@ -1,9 +1,26 @@
 const asyncHandler = require("../middleware/async");
 const createError = require("../utilis/createError");
+const path = require("path");
 const Product = require("../models/Product");
 
 const getProducts = asyncHandler(async (req, res, next) => {
-  res.status(200).send({ status: "success", data: res.advanceResults });
+  const keyWord = req.query.keyWord;
+
+  if (keyWord) {
+    const searchItem = keyWord
+      ? { name: { $regex: keyWord, $options: "i" } }
+      : {};
+
+    const searchProduct = await Product.find(searchItem);
+
+    res.status(200).send({
+      status: "success",
+      count: searchProduct.length,
+      data: searchProduct,
+    });
+  } else {
+    res.status(200).send({ status: "success", data: res.advanceResults });
+  }
 });
 
 const getProduct = asyncHandler(async (req, res, next) => {
@@ -22,9 +39,35 @@ const getProduct = asyncHandler(async (req, res, next) => {
 });
 
 const createProduct = asyncHandler(async (req, res, next) => {
-  const product = await Product.create(req.body);
+  if (!req.files) throw createError(400, "Please add a photo");
 
-  res.status(200).send({ status: "success", data: product });
+  const file = req.files.file;
+
+  //Check file type
+  if (!file.mimetype.startsWith("image"))
+    throw createError(400, "This file is not supported");
+
+  //Check file size
+  if (file.size > process.env.FILE_UPLOAD_SIZE)
+    throw createError(
+      400,
+      `Please upload a image of size less than ${process.env.FILE_UPLOAD_SIZE}`
+    );
+
+  const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+
+  const fileName = `photo${uniqueSuffix}${path.parse(file.name).ext}`;
+
+  const product = await Product.create({
+    ...req.body,
+    productImage: `uploads/product/${fileName}`,
+  });
+  //Upload file to path public/uploads/product
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${fileName}`, async (err) => {
+    if (err) throw err;
+
+    res.status(200).send({ status: "success", data: product });
+  });
 });
 
 const updateProduct = asyncHandler(async (req, res, next) => {
@@ -62,7 +105,6 @@ const deleteProduct = asyncHandler(async (req, res, next) => {
     .status(204)
     .send({ status: "success", message: "Product Deleted Successfully" });
 });
-
 module.exports = {
   getProducts,
   getProduct,
