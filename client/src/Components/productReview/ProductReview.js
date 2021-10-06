@@ -159,7 +159,8 @@ const ProductReview = ({ productId }) => {
                   <Button
                       variant="contained"
                       color="primary"
-                      type="submit" 
+                      type="submit"
+                      disabled={createReviewLoading}
                     >
                       {createReviewLoading ? <CircularProgress color="inherit" /> : <>Submit</>}  
                   </Button>
