@@ -8,7 +8,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import "../style.css";
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -17,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+    top: -24,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Filtetr({
+  setCategory,
   sort,
   handleSort,
-  setCategory,
   setPriceRange,
   setLtORgt,
   ltORgt,
@@ -76,9 +76,9 @@ function Filtetr({
             control={
               <Checkbox
                 checked={sort.includes("name") ? true : false}
-                value="name"
                 color="primary"
                 inputProps={{ "aria-label": "secondary checkbox" }}
+                value="name"
                 onChange={(e) => handleSort(e.target.value)}
               />
             }
@@ -108,13 +108,20 @@ function Filtetr({
             }
             label="Rating"
           />
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="demo-simple-select-outlined-label">
+              Category
+            </InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
               onChange={(e) => setCategory(e.target.value)}
+              label="Category"
             >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
               <MenuItem value="Shirt">T-shirt</MenuItem>
               <MenuItem value="Pants">Pant</MenuItem>
               <MenuItem value="Vest">Vest</MenuItem>
@@ -125,7 +132,7 @@ function Filtetr({
               autoComplete="priceRange"
               name="priceRange"
               variant="outlined"
-              type="text"
+              type="number"
               required
               id="priceRange"
               placeholder="Price Range"
@@ -147,14 +154,14 @@ function Filtetr({
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={ltORgt === "gt" ? true : false}
+                  checked={ltORgt === "gte" ? true : false}
                   color="primary"
                   inputProps={{ "aria-label": "secondary checkbox" }}
-                  value="gt"
+                  value="gte"
                   onChange={(e) => setLtORgt(e.target.value)}
                 />
               }
-              label="Greater than"
+              label="Greater Or equal to"
             />
           </div>
           <div>
@@ -163,7 +170,7 @@ function Filtetr({
               color="primary"
               onClick={handlePriceRange}
             >
-              Filter
+              Done
             </Button>
           </div>
         </Typography>
@@ -171,4 +178,4 @@ function Filtetr({
     </div>
   );
 }
-export default Filter;
+export default Filtetr;
