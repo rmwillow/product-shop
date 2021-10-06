@@ -6,14 +6,22 @@ import {
   Product,
   productReview,
 } from "../Reducers/productReducer";
+import { userLogin } from "../Reducers/userReducer";
 
 const rootReducer = combineReducers({
   productList: listProducts,
   Product: Product,
   productReview: productReview,
+  userLogin: userLogin,
 });
 
-const initialState = {};
+const userInfoFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
+
+const initialState = {
+  userLogin: { userInfo: userInfoFromStorage },
+};
 
 const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
 
