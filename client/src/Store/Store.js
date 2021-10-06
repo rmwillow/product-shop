@@ -10,6 +10,7 @@ import {
 const rootReducer = combineReducers({
   productList: listProducts,
   Product: Product,
+  productReview: productReview,
 });
 
 const initialState = {};
