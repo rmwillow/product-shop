@@ -1,36 +1,57 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import Header from "./Components/Header";
-import Home from "./Pages/Home";
-import Product from "./Pages/Product";
-import Login from "./Pages/Login";
-import Cart from "./Pages/Cart"
-import Shipping from "./Pages/Shipping";
-import Logout from "./Pages/Logout";
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Header />
-      <main className="py-3">
-        <Container>
-          <Switch>
-            <Route exact={true} path="/" component={Home} />
-            <Route
-              exact={true}
-              path="/product/:productId"
-              component={Product}
-            />
-            <Route exact={true} path="/login" component={Login} />
-            <Route exact={true} path="/cart" component={Cart} />
-            <Route exact={true} path="/shipping" component={Shipping} />
-            <Route exact={true} path="/logout" component={Logout} />
-          </Switch>
-        </Container>
-      </main>
-    </BrowserRouter>
-  );
+import React, { Component } from 'react';
+import Home from "./components/Home/Home";
+import Products from "./components/Products/Products";
+import { Switch, Route, Link } from "react-router-dom"
+import { connect } from "react-redux";
+import * as actionTypes from "./store/actions/actionTypes"
+import * as actions from "./store/actions/authActions";
+import './App.css';
+//let width = window.innerWidth;
+class App extends Component {
+  componentDidMount() {
+    this.props.loadUser();
+  }
+  render() {
+    return (
+      <div style={{
+        height: "100%"
+      }}>
+        <Switch>
+          <Route path="/products" component={Products} />
+          <Route path="/" component={Home} />
+        </Switch>
+        {/* <Link to="/">Home</Link>
+        
+        <Link to="/products">Products</Link> */}
+      </div>
+    )
+  };
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return { isAuth: state.auth.isAuth }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadUser: () => dispatch(actions.loadUser()),
+    logOut: () => dispatch(actions.logOut())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+{/* 
+import Items from "./components/list";
+import Register from "./components/Register";
+import Login from "./components/Login";
+<Items />
+        {this.props.isAuth ? <button style={{
+          backgroundColor: "red",
+          border: "3px solid black",
+          color: "white",
+          borderRadius: "5px"
+        }} onClick={this.props.logOut}>LOGOUT</button> : <React.Fragment>
+            <Register />
+            <Login />
+          </React.Fragment>} */}

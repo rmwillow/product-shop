@@ -1,30 +1,26 @@
-const createError = require("../utilis/createError");
-const verifyToken = require("../utilis/jwt");
-const asyncHandler = require("../middleware/async");
-const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
-const protect = asyncHandler(async (req, res, next) => {
-  const authorization = req.headers["authorization"];
-  if (!(authorization && authorization.toLowerCase().startsWith("bearer")))
-    throw createError(401, "Not authorized");
-  //Or check for cookie...
+function auth(req, res, next) {
+    const token = req.header("x-auth-token");
 
-  const token = authorization.split(" ")[1];
+    //* Check for token
+    if (!token) return res.status(401).json({
+        msg: "No token authorization denied!"
+    });
 
-  const decodeToken = verifyToken(token, process.env.JWT_SECRET);
+    try {
+        //* Verify token
+        const decoded = jwt.verify(token, "tanvesh01");
+        //* Add user from payload
+        req.user = decoded;
+        next();
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({
+            msg: "Token is not valid!"
+        })
+    }
 
-  req.user = await User.findById(decodeToken._id);
+}
 
-  next();
-});
-
-const permission = (role) => (req, res, next) => {
-  if (role !== req.user.role)
-    throw createError(
-      401,
-      `User role ${req.user.role} is not allowed to access this resource`
-    );
-
-  next();
-};
-module.exports = { protect, permission };
+module.exports = auth;

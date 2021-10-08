@@ -1,53 +1,17 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const colors = require("colors");
-const path = require("path");
-const fileUpload = require("express-fileupload");
-const { unknownEndpoints, errorHandler } = require("./middleware/error");
-const connectDb = require("./config/db");
+var express = require('express');
+var mongoose = require('mongoose');
 const app = express();
-
-dotenv.config({ path: "./config/config.env" });
-
-connectDb();
-
-//rouets
-const authRouter = require("./routes/auth");
-const userRouter = require("./routes/user");
-const productRouter = require("./routes/product");
-const reviewRouter = require("./routes/review");
-const orderRouter = require("./routes/order");
-const categoryRouter = require("./routes/category");
-
 app.use(express.json());
-
-app.use(fileUpload());
-
-app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/user", userRouter);
-app.use("/api/v1/product", productRouter);
-app.use("/api/v1/review", reviewRouter);
-app.use("/api/v1/order", orderRouter);
-app.use("/api/v1/category", categoryRouter);
-
-app.use(unknownEndpoints);
-app.use(errorHandler);
-
-const PORT = process.env.PORT || 3000;
-
-const server = app.listen(
-  PORT,
-  console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-  )
-);
-
-//Handle unhandle promise rejection
-
-process.on("unhandledRejection", (err, promise) => {
-  console.log(`Error: ${err.message}`.red.bold);
-  //close the server
-  server.close(() => process.exit(1));
+const items = require('./routes/api/items'); //* all routes are here
+const Users = require('./routes/api/Users'); //* all routes are here
+mongoose.connect("mongodb://localhost/mern", { useNewUrlParser: true }, function () {
+    console.log("connect");
 });
+//* Use Routes
+app.use('/api/items', items);
+app.use('/api/users', Users);
+app.use('/api/auth', require("./routes/api/Auth"));
+
+const port = 5000;
+
+app.listen(port, () => `Server running on port ${port}`);   
