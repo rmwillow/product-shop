@@ -1,7 +1,7 @@
 {
-    "name": "practice_mern",
+    "name": "Product-Shop",
     "version": "1.0.0",
-    "description": "Just to practice node and react together",
+    "description": "Product Shop",
     "main": "server.js",
     "scripts": {
         "client-install": "cd client && npm install",
