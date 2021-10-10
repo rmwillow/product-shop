@@ -1,16 +1,33 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
     overrides: {
         MuiCssBaseline: {
-            '@global': {
+            "@global": {
                 html: {
                     backgroundColor: "white",
                 },
                 body: {
                     backgroundColor: "white",
-                }
+                },
             },
         },
     },
-})
-export default theme
+
+    typography: {
+        fontFamily: " 'Jost', sans-serif",
+        // h5: {
+        //     fontWeight: 700,
+        //     fontSize: "2rem",
+        // },
+        h1: {
+            fontFamily: "'Abril Fatface', cursive",
+        },
+        h3: {
+            fontFamily: "'Bebas Neue', cursive",
+        },
+        subtitle1: {
+            fontFamily: " 'Jost', sans-serif",
+        },
+    },
+});
+export default theme;
