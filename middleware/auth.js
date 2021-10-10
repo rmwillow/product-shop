@@ -1,3 +1,5 @@
+
+   
 const jwt = require("jsonwebtoken");
 
 function auth(req, res, next) {
@@ -10,7 +12,7 @@ function auth(req, res, next) {
 
     try {
         //* Verify token
-        const decoded = jwt.verify(token, "tanvesh01");
+        const decoded = jwt.verify(token, "rachelmcgrath1994");
         //* Add user from payload
         req.user = decoded;
         next();
