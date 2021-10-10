@@ -8,23 +8,6 @@ class Register extends Component {
         password: '',
         msg: ''
     }
-
-    componentDidUpdate(prevProps) {
-        const error = this.props.error;
-        if (error !== prevProps.error) {
-            if (error.id === 'REGISTER_FAIL') {
-                this.setState({
-                    msg: error.msg.msg
-                })
-            }
-            else {
-                this.setState({
-                    msg: null
-                })
-            }
-        }
-    }
-
     handleChangeName = (e) => {
         this.setState({
             name: e.target.value
