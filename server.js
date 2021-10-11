@@ -22,14 +22,44 @@ app.use("/api/auth", require("./routes/api/Auth"));
 app.use("/api/Product", require("./routes/Products/Products"));
 app.use("/api/orders", require("./routes/api/Orders"));
 
-if (process.env.NODE_ENV == "production") {
-    // set static folder
-    app.use(express.static("client/build"));
-    app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+const proxy = require('http-proxy-middleware')
+
+module.exports = function(app) {
+    // add other server routes to path array
+    app.use(proxy(['/api' ], { target: 'http://localhost:5000' }));
+} 
+//Non api requests in production
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+    // Add production middleware such as redirecting to https
+
+    // Express will serve up production assets i.e. main.js
+    app.use(express.static(__dirname + '/client/build'));
+    // If Express doesn't recognize route serve index.html
+    const path = require('path');
+    app.get('*', (req, res) => {
+        res.sendFile(
+            path.resolve(__dirname, 'client', 'build', 'index.html')
+        );
     });
 }
 
-const PORT = process.env.PORT || 5000;
+//start server
+const PORT = process.env.PORT || 5000; //Heroku sets port dynamically
+app.listen(PORT, () => {
+    console.log('listening...');
+}).on('error', err => {
+    console.log(`Error Code: ${err.code}`);
+});
 
-app.listen(PORT, () => `Server running on port ${PORT}`);
+
+// if (process.env.NODE_ENV == "production") {
+//     // set static folder
+//     app.use(express.static("client/build"));
+//     app.get("*", (req, res) => {
+//         res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//     });
+// }
+
+// const PORT = process.env.PORT || 5000;
+
+// app.listen(PORT, () => `Server running on port ${PORT}`);
