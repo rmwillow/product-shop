@@ -1,8 +1,8 @@
-export const ADD = 'ADD';
-export const GET_ERROR = 'GET_ERROR';
-export const CLEAR_ERROR = 'CLEAR_ERROR';
-export const GET_ITEMS = 'GET_ITEMS';
-export const ITEMS_LOADING = 'ITEMS_LOADING';
+export const ADD = "ADD";
+export const GET_ERROR = "GET_ERROR";
+export const CLEAR_ERROR = "CLEAR_ERROR";
+export const GET_ITEMS = "GET_ITEMS";
+export const ITEMS_LOADING = "ITEMS_LOADING";
 export const ITEM_DELETE = "ITEM_DELETE";
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";

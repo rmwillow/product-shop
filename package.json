@@ -4,18 +4,17 @@
     "description": "Product Shop",
     "main": "server.js",
     "scripts": {
-        "client-install": "cd client && npm install",
-        "start": "node server.js",
-        "server": "nodemon server.js",
-        "client": "npm start --prefix client",
-        "dev": "concurrently \"npm run server\" \"npm run client\"",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+        "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+        "start:prod": "cd server && npm start",
+        "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+        "install": "cd server && npm i && cd ../client && npm i",
+        "heroku-postbuild": "cd client && npm run build"
     },
     "keywords": [
         "node",
         "react"
     ],
-    "author": "Tanvesh",
+    "author": "Rachel McGrath",
     "license": "MIT",
     "dependencies": {
         "bcryptjs": "^2.4.3",
