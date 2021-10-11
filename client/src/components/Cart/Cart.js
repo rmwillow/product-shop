@@ -17,7 +17,7 @@ class Cart extends Component {
             phone: "98765",
             address: "996",
             pin: 1234,
-            email: "sarve@gmail.com",
+            email: "rachelmcgrath1994@gmail.com",
         });
     };
     render() {

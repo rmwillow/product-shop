@@ -10,7 +10,8 @@ mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
 mongoose
-    .connect('mongodb://localhost/Product-shop')
+    // .connect('mongodb://localhost/Product-shop')
+    .connect("MONGODB_URI")
     .then(() => console.log("Connected to DataBase"))
     .catch((err) => console.log("error: ", err.message));
 

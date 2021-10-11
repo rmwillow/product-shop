@@ -3,12 +3,13 @@ import { motion } from "framer-motion";
 import "./Home.css";
 import { connect } from "react-redux";
 import { getItem } from "../../store/actions/products";
+
 var classNames = require("classnames");
 class Home extends Component {
     state = {
         fashionOpen: false,
         shoesOpen: false,
-        aceesOpen: false,
+        accessOpen: false,
         ElectronicsOpen: false,
     };
     nav = (id) => {
@@ -26,9 +27,9 @@ class Home extends Component {
             shoesOpen: !this.state.shoesOpen,
         });
     };
-    toggleAceesOpen = () => {
+    toggleAccessOpen = () => {
         this.setState({
-            aceesOpen: !this.state.aceesOpen,
+            accessOpen: !this.state.accessOpen,
         });
     };
     toggleElectronicsOpen = () => {
@@ -96,9 +97,9 @@ class Home extends Component {
                         backgroundImage:
                             'url(" https://images.unsplash.com/photo-1523206489230-c012c64b2b48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80")',
                     }}
-                    className={classNames("table__cell", { active: this.state.aceesOpen })}
-                    onMouseEnter={this.toggleAceesOpen}
-                    onMouseLeave={this.toggleAceesOpen}
+                    className={classNames("table__cell", { active: this.state.accessOpen })}
+                    onMouseEnter={this.toggleAccessOpen}
+                    onMouseLeave={this.toggleAccessOpen}
                     onClick={() => this.nav("phone")}
                 ></div>
                 <div

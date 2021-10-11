@@ -23,7 +23,7 @@ router.post("/", (req, res) => {
                 });
             }
 
-            jwt.sign({ id: user.id }, "rachelmcgrath199401", { expiresIn: 7600 }, (err, token) => {
+            jwt.sign({ id: user.id }, "rachelmcgrath1994", { expiresIn: 7600 }, (err, token) => {
                 if (err) {
                     throw err;
                 } else {

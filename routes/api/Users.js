@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
 
                                 jwt.sign(
                                     { id: user.id },
-                                    "rachelmcgrath199401",
+                                    "rachelmcgrath1994",
                                     { expiresIn: 3600 },
                                     (err, token) => {
                                         if (err) {
