@@ -5,9 +5,10 @@
     "main": "server.js",
     "scripts": {
         "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-        "start:prod": "cd server && npm start",
-        "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
-        "install": "cd server && npm i && cd ../client && npm i",
+        "start:prod": "npm start",
+        "start:dev": "concurrently \"npm run watch\" \"cd client && npm start\"",
+        "install": "cd client && npm i",
+        "watch": "nodemon server.js",
         "heroku-postbuild": "cd client && npm run build"
     },
     "keywords": [
@@ -25,6 +26,7 @@
         "redux-thunk": "^2.3.0"
     },
     "devDependencies": {
-        "nodemon": "^2.0.4"
+        "nodemon": "^2.0.4",
+        "if-env": "^1.0.4"
     }
 }

@@ -1,103 +1,101 @@
-import React from 'react';
-import ItemGrid from "../Item/ItemGrid/ItemGrid";
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React from "react";
+import {
+    AppBar,
+    CssBaseline,
+    Drawer,
+    Hidden,
+    IconButton,
+    List,
+    ListItem,
+    MenuIcon,
+    Toolbar,
+    Typography,
+    useTheme,
+    BrandList,
+    PriceSlider,
+    ItemGrid,
+    useStyles,
+    listOfButtons,
+} from "./imports";
+import Icon from "./Icon/Icon";
+import Landing from "../Landing/Landing";
+import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import FaceIcon from "@material-ui/icons/Face";
 import { connect } from "react-redux";
-import * as actions from "../../store/actions/categoryActions";
-const drawerWidth = 300;
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    drawer: {
-        [theme.breakpoints.up('sm')]: {
-            width: drawerWidth,
-            flexShrink: 0,
-        },
-    },
-    appBar: {
-        backgroundColor: "white",
-        color: "black",
-        zIndex: theme.zIndex.drawer + 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-        [theme.breakpoints.up('sm')]: {
-            display: 'none',
-        },
-    },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-        marginLeft: "10px",
-        marginTop: "5rem",
-        marginBottom: "20px",
-        width: drawerWidth,
-        backgroundColor: "#fafafa",
-        borderRight: "3px solid transparent",
-        backgroundColor: "white",
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-    },
-    filter: {
-        borderRadius: "1.5rem",
-        overflow: 'auto',
-        backgroundColor: "white",
-        boxShadow: "0px 38px 44px 0px rgba(240,240,240,0.68)"
-    }
-}));
-
+import { motion } from "framer-motion";
+import { getItem } from "../../store/actions/products";
+import { toggleCart } from "../../store/actions/orderActions";
+import { toggleAuthModal, logOut } from "../../store/actions/authActions";
 function ResponsiveDrawer(props) {
-    const { window } = props;
+    // const { window } = props;
+    console.log(window.innerWidth);
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
-
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-
-
     const drawer = (
         <div className={classes.filter}>
-            <div className={classes.toolbar} />
             <List>
-            <ListItem button onClick={() => props.getItem("shoes")} key={"shoes"}>
-                    <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                    <ListItemText primary={"shoes"} />
-                </ListItem>
-                <ListItem button onClick={() => props.getItem("phones")} key={"phones"}>
-                    <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                    <ListItemText primary={"phones"} />
-                </ListItem>
+                {listOfButtons.map((e) => {
+                    return (
+                        <ListItem
+                            button
+                            onClick={() => {
+                                props.getItem(e.category);
+                                if (window.innerWidth <= 600) {
+                                    handleDrawerToggle();
+                                }
+                            }}
+                            key={e.label}
+                        >
+                            <Icon img={e.data} />
+                            <Typography style={{ fontSize: "2rem" }} variant="h3">
+                                {e.label}
+                            </Typography>
+                        </ListItem>
+                    );
+                })}
+                {/* ::::::::: FILTERS STARTS HERE ::::::::: */}
+                <BrandList items={props.items} />
+                <PriceSlider />
             </List>
         </div>
     );
 
-    const container = window !== undefined ? () => window().document.body : undefined;
+    const container = undefined;
+    // window !== undefined ? () => window().document.body : undefined;
+    const rootVariant = {
+        hidden: {
+            opacity: 0,
+        },
+        animate: {
+            opacity: 1,
+            transition: {
+                duration: 3,
+            },
+        },
+        exit: {
+            opacity: 0,
+            transition: {
+                duration: 1.5,
+            },
+        },
+    };
 
     return (
-        <div className={classes.root}>
+        <motion.div
+            variants={rootVariant}
+            initial="hidden"
+            animate="animate"
+            exit="exit"
+            className={classes.root}
+        >
             <CssBaseline />
-            <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
+            <AppBar elevation={0} className={classes.appBar}>
+                <Toolbar style={{ justifyContent: "space-between" }}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -107,61 +105,101 @@ function ResponsiveDrawer(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Shopify
-          </Typography>
+                    <div></div>
+                    <div className={classes.navInfo}>
+                        <IconButton
+                            style={{ marginRight: "0.5rem" }}
+                            onClick={() => props.toggleCart()}
+                        >
+                            <ShoppingCartOutlinedIcon />
+                        </IconButton>
+                        {props.isAuth ? (
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                {"Welcome back, " + props.user.name + "  "}
+                                <IconButton onClick={() => props.logOut()}>
+                                    <ExitToAppIcon />
+                                </IconButton>
+                            </div>
+                        ) : (
+                            <IconButton onClick={() => props.toggleAuthModal()}>
+                                <FaceIcon />
+                            </IconButton>
+                        )}
+                    </div>
                 </Toolbar>
             </AppBar>
-            <nav className={classes.drawer} aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Hidden smUp implementation="css">
-                    <Drawer
-                        container={container}
-                        variant="temporary"
-                        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Drawer
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        variant="permanent"
-                        open
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-            </nav>
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                <ItemGrid items={props.items} />
-            </main>
-        </div>
+            <div className={classes.appBarSpacer} />
+            <Landing />
+            <div className={classes.app}>
+                <nav className={classes.drawer} aria-label="mailbox folders">
+                    {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+                    <Hidden smUp implementation="css">
+                        <Drawer
+                            container={container}
+                            variant="temporary"
+                            anchor={theme.direction === "rtl" ? "right" : "left"}
+                            open={mobileOpen}
+                            onClose={handleDrawerToggle}
+                            classes={{
+                                paper: classes.drawerPaper,
+                                modal: classes.modal,
+                            }}
+                            ModalProps={{
+                                keepMounted: true, // Better open performance on mobile.
+                            }}
+                        >
+                            {drawer}
+                        </Drawer>
+                    </Hidden>
+                    <Hidden xsDown implementation="css">
+                        <Drawer
+                            classes={{
+                                paper: classes.drawerPaper,
+                            }}
+                            variant="permanent"
+                            open
+                        >
+                            {drawer}
+                        </Drawer>
+                    </Hidden>
+                </nav>
+                <main className={classes.content}>
+                    <ItemGrid
+                        items={props.items}
+                        brand={props.brand}
+                        minPrice={props.minPrice}
+                        maxPrice={props.maxPrice}
+                    />
+                </main>
+            </div>
+        </motion.div>
     );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
-        items: state.category.shoes,
-        loading: state.category.loading
-    }
-}
+        cart: state.orders.cart,
+        items: state.category.items,
+        loading: state.category.loading,
+        brand: state.category.brand,
+        minPrice: state.category.minPrice,
+        maxPrice: state.category.maxPrice,
+        isAuth: state.auth.isAuth,
+        user: state.auth.user,
+    };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        getItem: (item) => dispatch(actions.getItem(item))
-    }
-}
-
+        toggleCart: () => dispatch(toggleCart()),
+        toggleAuthModal: () => dispatch(toggleAuthModal()),
+        getItem: (item) => dispatch(getItem(item)),
+        logOut: () => dispatch(logOut()),
+    };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveDrawer);

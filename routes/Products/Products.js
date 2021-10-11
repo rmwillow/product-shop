@@ -23,7 +23,7 @@ Product.create(
     },
     function (err, shoe) {
         if (err) {
-            console.lof(err);
+            console.log(err);
         } else {
             console.log(shoe);
         }
