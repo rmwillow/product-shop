@@ -17,7 +17,7 @@ import {
     useStyles,
     listOfButtons,
 } from "./imports";
-import Icon from "client/src/components/Nav/Icon/Icon.js";
+import Icon from "./Icon/Icon";
 import Landing from "../Landing/Landing";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
