@@ -4,12 +4,12 @@
     "description": "Product Shop",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js",
-        "server": "node server.js",
-        "client": "npm run start --prefix client",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+        "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+        "start:prod": "npm start",
+        "start:dev": "concurrently \"npm run watch\" \"cd client && npm start\"",
         "install": "cd client && npm i",
-        "watch": "nodemon server.js"
+        "watch": "nodemon server.js",
+        "heroku-postbuild": "cd client && npm run build"
     },
     "keywords": [
         "node",
