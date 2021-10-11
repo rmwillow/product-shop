@@ -12,7 +12,7 @@ class Cart extends Component {
         }
         this.props.submitOrder({
             products: ids,
-            name: "tanvesh",
+            name: "rachelmcgrath1994",
             sizes: [12, 13, 14],
             phone: "98765",
             address: "996",

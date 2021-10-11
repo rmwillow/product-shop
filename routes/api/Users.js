@@ -7,7 +7,7 @@ router.post("/", (req, res) => {
     const { name, email, password } = req.body;
     //* Simple validation
     if (!name || !email || !password) {
-        return res.status(400).json({ msg: "enter all fields!" })
+        return res.status(400).json({ msg: "enter all firelds!" })
     }
     //* Check for existing user
     User.findOne({ email })
@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
 
                                 jwt.sign(
                                     { id: user.id },
-                                    "tanvesh01",
+                                    "rachelmcgrath199401",
                                     { expiresIn: 3600 },
                                     (err, token) => {
                                         if (err) {
