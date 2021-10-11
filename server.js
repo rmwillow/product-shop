@@ -10,7 +10,6 @@ mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
 mongoose
-    // .connect('mongodb://localhost/Product-shop')
     .connect(process.env.MONGODB_URI || 'mongodb://localhost/Product-shop')
     .then(() => console.log("Connected to DataBase"))
     .catch((err) => console.log("error: ", err.message));
@@ -45,6 +44,7 @@ app.listen(PORT, () => {
     console.log(`Error Code: ${err.code}`);
 });
 
+module.exports = mongoose.connection;
 
 // if (process.env.NODE_ENV == "production") {
 //     // set static folder
