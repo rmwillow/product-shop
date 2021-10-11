@@ -4,8 +4,8 @@
     "description": "Product Shop",
     "main": "server.js",
     "scripts": {
-        "start": "node index.js",
-        "server": "node index.js",
+        "start": "node server.js",
+        "server": "node server.js",
         "client": "npm run start --prefix client",
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
         "install": "cd client && npm i",
