@@ -10,8 +10,8 @@ mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
 mongoose
-    // .connect('mongodb://localhost/Product-shop')
-    .connect("MONGODB_URI")
+    .connect('mongodb://localhost/Product-shop')
+    // .connect("MONGODB_URI")
     .then(() => console.log("Connected to DataBase"))
     .catch((err) => console.log("error: ", err.message));
 
@@ -30,6 +30,6 @@ if (process.env.NODE_ENV == "production") {
     });
 }
 
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-app.listen(port, () => `Server running on port ${port}`);
+app.listen(PORT, () => `Server running on port ${PORT}`);

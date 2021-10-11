@@ -7,7 +7,7 @@ router.post("/", (req, res) => {
     const { name, email, password } = req.body;
     //* Simple validation
     if (!name || !email || !password) {
-        return res.status(400).json({ msg: "enter all firelds!" })
+        return res.status(400).json({ msg: "enter all fields!" })
     }
     //* Check for existing user
     User.findOne({ email })

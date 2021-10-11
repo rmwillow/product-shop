@@ -30,7 +30,6 @@ Product.create(
     }
 );
 
-
 Product.create(
     {
         name: "iPhone 11",
@@ -85,11 +84,11 @@ Product.create(
         description: "SWAG",
         category: "shoe",
     },
-    function (err, shoes) {
+    function (err, shoe) {
         if (err) {
             console.log(err);
         } else {
-            console.log(shoes);
+            console.log(shoe);
         }
     }
 );

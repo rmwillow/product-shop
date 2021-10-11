@@ -25,7 +25,7 @@ const CustomField = ({ label, type, variant, ...props }) => {
 };
 
 const validationSchema = yup.object({
-    email: yup.string().email("Enter a valid Email :)").required(),
+    email: yup.string().email("Enter a valid Email").required(),
     password: yup.string().min(3, "Too short :(").required(),
 });
 function LoginForm(props) {

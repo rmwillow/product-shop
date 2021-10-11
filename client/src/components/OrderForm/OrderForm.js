@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const validationSchema = yup.object({
     name: yup.string().required(),
-    email: yup.string().email("Enter a valid Email :)").required(),
+    email: yup.string().email("Enter a valid Email").required(),
     address: yup.string().required("A valid address is required"),
     phone: yup.string().min(7, "should atlest be 7 digits").required(),
     pin: yup.string().min(7, "should atlest be 7 digits").required(),

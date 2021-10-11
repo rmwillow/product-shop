@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { Formik, Form, useField } from "formik";
 const validationSchema = yup.object({
     name: yup.string().required(),
-    email: yup.string().email("Enter a valid Email :)").required(),
+    email: yup.string().email("Enter a valid Email").required(),
     password: yup.string().min(3, "Too short :(").required(),
 });
 
