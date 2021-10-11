@@ -22,12 +22,6 @@ app.use("/api/auth", require("./routes/api/Auth"));
 app.use("/api/Product", require("./routes/Products/Products"));
 app.use("/api/orders", require("./routes/api/Orders"));
 
-const proxy = require('http-proxy-middleware')
-
-module.exports = function(app) {
-    // add other server routes to path array
-    app.use(proxy(['/api' ], { target: 'http://localhost:5000' }));
-} 
 //Non api requests in production
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
     // Add production middleware such as redirecting to https
