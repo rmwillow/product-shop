@@ -10,10 +10,10 @@ mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
 mongoose
-    .connect(process.env.MONGODB_URI || 'mongodb://localhost/Product-shop')
+    .connect('mongodb://localhost/Product-shop')
+    // .connect("MONGODB_URI")
     .then(() => console.log("Connected to DataBase"))
     .catch((err) => console.log("error: ", err.message));
-
 
 //* Use Routes
 // app.use("/api/items", items);
@@ -38,14 +38,13 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
 }
 
 //start server
-const PORT = process.env.PORT || 5000; //Heroku sets port dynamically
+const PORT = process.env.PORT || 3000; //Heroku sets port dynamically
 app.listen(PORT, () => {
     console.log('listening...');
 }).on('error', err => {
     console.log(`Error Code: ${err.code}`);
 });
 
-module.exports = mongoose.connection;
 
 // if (process.env.NODE_ENV == "production") {
 //     // set static folder
