@@ -7,12 +7,12 @@
         "node": "14.x"
     },
     "scripts": {
-        "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-        "start:prod": "npm start",
-        "start:dev": "concurrently \"npm run watch\" \"cd client && npm start\"",
-        "install": "cd client && npm i",
-        "watch": "nodemon server.js",
-        "heroku-postbuild": "cd client && npm run build"
+        "client-install": "cd client && npm install",
+        "start": "node server.js",
+        "server": "nodemon server.js",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
     },
     "keywords": [
         "node",
