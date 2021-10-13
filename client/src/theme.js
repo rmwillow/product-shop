@@ -14,19 +14,19 @@ const theme = createMuiTheme({
     },
 
     typography: {
-        fontFamily: " 'Jost', sans-serif",
+        fontFamily:"'Playfair Display', serif",
         // h5: {
         //     fontWeight: 700,
         //     fontSize: "2rem",
         // },
         h1: {
-            fontFamily: "'Abril Fatface', cursive",
+            fontFamily: "'Playfair Display', serif",
         },
         h3: {
-            fontFamily: "'Bebas Neue', cursive",
+            fontFamily: "'Playfair Display', serif",
         },
         subtitle1: {
-            fontFamily: " 'Jost', sans-serif",
+            fontFamily: "'Playfair Display', serif",
         },
     },
 });

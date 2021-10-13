@@ -9,88 +9,88 @@ router.get("/:cat", (req, res) => {
     });
 });
 
-Product.create(
-    {
-        name: "UNIFORIA PRO",
-        brand: "ADIDAS",
-        price: "160",
-        sizes: ["5","6","7","8"],
-        rating: 0,
-        imageLink:
-            "https://assets.adidas.com/images/h_2000,f_auto,q_auto:sensitive,fl_lossy/293609dd26704c498b9aaae20101c395_9366/Uniforia_Pro_Football_White_FH7362_01_standard.jpg",
-        description: "SWAG",
-        category: "accessories",
-    },
-    function (err, accessories) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(accessories);
-        }
-    }
-);
+// Product.create(
+//     {
+//         name: "P2 PFD",
+//         brand: "Zhik",
+//         price: "139.99",
+//         sizes: ["S","M","L","XL"],
+//         rating: 0,
+//         imageLink:
+//             "https://dybp9aem9km4k.cloudfront.net/pub/media/opti_image/webp/catalog/product/cache/77b7c36571f5960ce73e8bdea2fa57ed/p/2/p2pfd-grey-web-front2.webp",
+//         description: "SWAG",
+//         category: "accessories",
+//     },
+//     function (err, accessories) {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log(accessories);
+//         }
+//     }
+// );
 
-Product.create(
-    {
-        name: "iPhone 11",
-        brand: "APPLE",
-        price: "1099",
-        sizes: ["Pro", "Max"],
-        rating: 0,
-        imageLink:
-            "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-select-2019-family?wid=882&hei=1058&fmt=jpeg&qlt=80&.v=1567022175704",
-        description: "SWAG",
-        category: "phones",
-    },
-    function (err, phone) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(phone);
-        }
-    }
-);
+// Product.create(
+//     {
+//         name: "Galaxy S21",
+//         brand: "Samsung",
+//         price: "899",
+//         sizes: ["Black", "White", "Pink", "Purple"],
+//         rating: 0,
+//         imageLink:
+//             "https://media.wired.com/photos/6000ef46c724a79925642473/16:9/w_2383,h_1340,c_limit/Gear-Samsung-Galaxy-S21-colorways-SOURCE-Samsung.jpg.jpg",
+//         description: "SWAG",
+//         category: "phone",
+//     },
+//     function (err, Phones) {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log(Phones);
+//         }
+//     }
+// );
 
-Product.create(
-    {
-        name: "Flannel",
-        brand: "Forever 21",
-        price: "24.99",
-        sizes: ["S","M","L"],
-        rating: 0,
-        imageLink:
-            "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/8-2-flannel-2x1lede3-1627938965.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
-        description: "SWAG",
-        category: "clothing",
-    },
-    function (err, clothing) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(clothing);
-        }
-    }
-);
+//  Product.create(
+//     {
+//         name: "Align Collection",
+//         brand: "Lulu Lemon",
+//         price: "95.00",
+//         sizes: ["S","M","L"],
+//         rating: 0,
+//         imageLink:
+//             "https://images.lululemon.com/is/image/lululemon/gbl_Sep_Wk1_QS_Sweaters_W_1_2_lg_Masonry_01_D?$masonry_grid$&wid=648&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72",
+//         description: "SWAG",
+//         category: "clothing",
+//     },
+//     function (err, clothing) {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log(clothing);
+//         }
+//     }
+// );
 
-Product.create(
-    {
-        name: "Chuck Taylor All Star",
-        brand: "Converse",
-        price: "75.00",
-        sizes: ["7","8","9"],
-        rating: 0,
-        imageLink:
-            "https://www.converse.com/dw/image/v2/BCZC_PRD/on/demandware.static/-/Sites-cnv-master-catalog/default/dw01d50f3c/images/a_107/561676C_A_107X1.jpg?sw=964",
-        description: "SWAG",
-        category: "shoe",
-    },
-    function (err, shoe) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(shoe);
-        }
-    }
-);
+// Product.create(
+//     {
+//         name: "SKYLA BAY BOOT - WOMEN'S",
+//         brand: "Timberland",
+//         price: "79.99",
+//         sizes: ["7","8","9","10","11","12"],
+//         rating: 0,
+//         imageLink:
+//             "https://images.dsw.com/is/image/DSWShoes/499825_231_ss_01?impolicy=qlt-medium-high&imwidth=640&imdensity=1",
+//         description: "SWAG",
+//         category: "shoe",
+//     },
+//     function (err, Footwear) {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log(Footwear);
+//         }
+//     }
+// );
 
 module.exports = router;
