@@ -5,10 +5,10 @@ const app = express();
 app.use(express.json());
 const items = require("./routes/api/items"); //* all routes are here
 const Users = require("./routes/api/Users"); //* all routes are here
-mongoose.set("useNewUrlParser", true);
-mongoose.set("useFindAndModify", false);
-mongoose.set("useCreateIndex", true);
-mongoose.set("useUnifiedTopology", true);
+// mongoose.set("useNewUrlParser", true);
+// mongoose.set("useFindAndModify", false);
+// mongoose.set("useCreateIndex", true);
+// mongoose.set("useUnifiedTopology", true);
 mongoose
     .connect('mongodb://localhost/Product-shop')
     // .connect("MONGODB_URI")
