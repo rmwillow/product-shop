@@ -45,6 +45,7 @@ app.listen(PORT, () => {
     console.log(`Error Code: ${err.code}`);
 });
 
+module.exports = mongoose.connection;
 
 // if (process.env.NODE_ENV == "production") {
 //     // set static folder
