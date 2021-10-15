@@ -47,14 +47,15 @@ app.listen(PORT, () => {
 
 module.exports = mongoose.connection;
 
-// if (process.env.NODE_ENV == "production") {
-//     // set static folder
-//     app.use(express.static("client/build"));
-//     app.get("*", (req, res) => {
-//         res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-//     });
-// }
+require("dotenv").config()
 
-// const PORT = process.env.PORT || 5000;
-
-// app.listen(PORT, () => `Server running on port ${PORT}`);
+mongoose
+ .connect(
+     process.env.MONGODB_CONNECTION_STRING,
+         {
+           useNewUrlParser: true,
+           useUnifiedTopology: true,
+         }
+ )
+ .then(() => console.log("MongoDB has been connected"))
+ .catch((err) => console.log(err));
